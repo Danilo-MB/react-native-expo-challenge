@@ -2,7 +2,6 @@ import { api } from './api';
 import { PostsSchema, Post, PostSchema } from '../schemas';
 import { AxiosResponse } from 'axios';
 
-
 export async function fetchPosts(): Promise<Post[]> {
   const response: AxiosResponse<unknown> = await api.get('/posts');
 
@@ -14,7 +13,6 @@ export async function fetchPosts(): Promise<Post[]> {
 
   return parsed.data;
 }
-
 
 export async function fetchPostById(id: number): Promise<Post> {
   const response: AxiosResponse<unknown> = await api.get(`/posts/${id}`);

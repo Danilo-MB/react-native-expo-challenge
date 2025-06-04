@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Post } from '@/schemas';
 
-
 type FavoritesState = {
   favorites: Post[];
   loadFavorites: () => Promise<void>;

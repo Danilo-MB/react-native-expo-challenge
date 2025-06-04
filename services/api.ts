@@ -1,11 +1,5 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios';
-import { showErrorToast } from '../components/Toast'
-
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { showErrorToast } from '../components/Toast';
 
 const config: AxiosRequestConfig = {
   baseURL: 'https://jsonplaceholder.typicode.com',
@@ -53,7 +47,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export { api };

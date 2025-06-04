@@ -1,22 +1,22 @@
 // app/(tabs)/Users.tsx
 import { FlatList, StyleSheet, View, Text } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { fetchUsers } from '../../services/users'
+import { fetchUsers } from '../../services/users';
 import { User } from '../../schemas';
 import UserCard from '@/components/UserCard';
 import { useCallback } from 'react';
 
-
 export default function UsersScreen() {
-  const { data: users, isLoading, error } = useQuery<User[]>({
+  const {
+    data: users,
+    isLoading,
+    error,
+  } = useQuery<User[]>({
     queryKey: ['users'],
     queryFn: fetchUsers,
   });
 
-  const renderItem = useCallback(
-    ({ item }: { item: User }) => <UserCard user={item} />,
-    []
-  );
+  const renderItem = useCallback(({ item }: { item: User }) => <UserCard user={item} />, []);
 
   if (isLoading) {
     return (

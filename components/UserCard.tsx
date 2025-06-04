@@ -9,7 +9,9 @@ type Props = {
 const UserCard = React.memo(({ user }: Props) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.name}>{user.name} (@{user.username})</Text>
+      <Text style={styles.name}>
+        {user.name} (@{user.username})
+      </Text>
       <Text style={styles.email}>{user.email}</Text>
       <Text style={styles.phone}>{user.phone}</Text>
       <Text style={styles.website}>{user.website}</Text>

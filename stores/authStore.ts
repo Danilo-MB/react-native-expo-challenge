@@ -19,9 +19,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   login: async (username, password) => {
     const { USERS } = await import('@/data/users');
-    const found = USERS.find(
-      (u) => u.username === username && u.password === password
-    );
+    const found = USERS.find((u) => u.username === username && u.password === password);
     if (found) {
       const { password: _, ...safeUser } = found;
       set({ user: safeUser });

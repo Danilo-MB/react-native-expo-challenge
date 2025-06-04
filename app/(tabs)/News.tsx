@@ -1,14 +1,24 @@
-import { View, Text, ActivityIndicator, FlatList, StyleSheet, ListRenderItem, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  ListRenderItem,
+  TextInput,
+} from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { Post } from '../../schemas';
 import { JSX, useCallback, useMemo, useState } from 'react';
 import PostCard from '../../components/PostCard';
 import { fetchPosts } from '@/services/posts';
 
-
 export default function PhotosScreen(): JSX.Element {
-  
-  const { data: posts, isLoading, error } = useQuery<Post[], Error>({
+  const {
+    data: posts,
+    isLoading,
+    error,
+  } = useQuery<Post[], Error>({
     queryKey: ['posts'],
     queryFn: fetchPosts,
   });
@@ -18,18 +28,13 @@ export default function PhotosScreen(): JSX.Element {
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
     const query = searchQuery.toLowerCase();
-  
-    return posts.filter(post =>
-      post.title.toLowerCase().includes(query) ||
-      post.body.toLowerCase().includes(query)
+
+    return posts.filter(
+      (post) => post.title.toLowerCase().includes(query) || post.body.toLowerCase().includes(query),
     );
   }, [posts, searchQuery]);
 
-
-  const renderItem = useCallback<ListRenderItem<Post>>(
-    ({ item }) => <PostCard post={item} />,
-    []
-  );
+  const renderItem = useCallback<ListRenderItem<Post>>(({ item }) => <PostCard post={item} />, []);
 
   if (isLoading) {
     return (
@@ -53,7 +58,7 @@ export default function PhotosScreen(): JSX.Element {
     <>
       <TextInput
         style={styles.searchInput}
-        placeholder='Search by title...'
+        placeholder="Search by title..."
         value={searchQuery}
         onChangeText={setSearchQuery}
       />

@@ -6,7 +6,6 @@ import { Post } from '@/schemas';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { useFavoritesStore } from '@/stores/favoritesStore';
 
-
 type Props = {
   post: Post;
 };

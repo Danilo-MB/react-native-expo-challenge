@@ -2,7 +2,6 @@ import { api } from './api';
 import { CommentsSchema, PostComment } from '../schemas';
 import { AxiosResponse } from 'axios';
 
-
 export async function fetchCommentsByPostId(postId: number): Promise<PostComment[]> {
   const response: AxiosResponse<unknown> = await api.get(`/posts/${postId}/comments`);
 

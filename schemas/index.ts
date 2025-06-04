@@ -10,7 +10,6 @@ export const PostSchema = z.object({
 export const PostsSchema = z.array(PostSchema);
 export type Post = z.infer<typeof PostSchema>;
 
-
 export const PhotoSchema = z.object({
   albumId: z.number(),
   id: z.number(),
@@ -21,7 +20,6 @@ export const PhotoSchema = z.object({
 
 export const PhotosSchema = z.array(PhotoSchema);
 export type Photo = z.infer<typeof PhotoSchema>;
-
 
 export const CommentSchema = z.object({
   postId: z.number(),
@@ -34,7 +32,6 @@ export const CommentSchema = z.object({
 export const CommentsSchema = z.array(CommentSchema);
 export type PostComment = z.infer<typeof CommentSchema>;
 
-
 export const UserSchema = z.object({
   id: z.number(),
   name: z.string(),
@@ -46,4 +43,3 @@ export const UserSchema = z.object({
 
 export const UsersSchema = z.array(UserSchema);
 export type User = z.infer<typeof UserSchema>;
-

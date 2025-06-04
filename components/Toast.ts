@@ -9,12 +9,7 @@ interface ShowToastOptions {
   position?: 'top' | 'bottom';
 }
 
-export function showToast({
-  type,
-  title,
-  message,
-  position = 'top',
-}: ShowToastOptions): void {
+export function showToast({ type, title, message, position = 'top' }: ShowToastOptions): void {
   Toast.show({
     type,
     text1: title,
@@ -30,4 +25,3 @@ export function showErrorToast(message: string, title = 'Error'): void {
 export function showSuccessToast(message: string, title = 'Success'): void {
   showToast({ type: 'success', title, message });
 }
-

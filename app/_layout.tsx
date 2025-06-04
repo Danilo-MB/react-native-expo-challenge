@@ -9,7 +9,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useColorScheme } from '@/components/useColorScheme';
 import Toast from 'react-native-toast-message';
 
-
 const queryClient = new QueryClient();
 
 export {

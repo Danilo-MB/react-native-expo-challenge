@@ -5,20 +5,16 @@ import PostCard from '@/components/PostCard';
 import { useFocusEffect } from 'expo-router';
 import { useFavoritesStore } from '@/stores/favoritesStore';
 
-
 export default function FavoritesScreen() {
   const { favorites, loadFavorites } = useFavoritesStore();
 
   useFocusEffect(
     useCallback(() => {
       loadFavorites();
-    }, [loadFavorites])
+    }, [loadFavorites]),
   );
 
-  const renderItem = useCallback(
-    ({ item }: { item: Post }) => <PostCard post={item} />,
-    []
-  );
+  const renderItem = useCallback(({ item }: { item: Post }) => <PostCard post={item} />, []);
 
   if (!favorites.length) {
     return (

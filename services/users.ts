@@ -2,7 +2,6 @@ import { api } from './api';
 import { UsersSchema, User } from '../schemas';
 import { AxiosResponse } from 'axios';
 
-
 export async function fetchUsers(): Promise<User[]> {
   const response: AxiosResponse<unknown> = await api.get('/users');
   const parsed = UsersSchema.safeParse(response.data);

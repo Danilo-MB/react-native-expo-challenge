@@ -1,5 +1,13 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { View, Text, ActivityIndicator, Image, FlatList, StyleSheet, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  Image,
+  FlatList,
+  StyleSheet,
+  Pressable,
+} from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPostById } from '@/services/posts';
 import { fetchCommentsByPostId } from '@/services/comments';
@@ -8,14 +16,17 @@ import { PostComment } from '@/schemas';
 import { CommentCard } from '@/components/CommentCard';
 import { useCallback, useLayoutEffect, useState } from 'react';
 
-
 export default function PostDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const postId = Number(id);
   const navigation = useNavigation();
   const [showFullBody, setShowFullBody] = useState<boolean>(false);
 
-  const { data: post, isLoading, error } = useQuery({
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['post', postId],
     queryFn: () => fetchPostById(postId),
     enabled: !!id,
@@ -38,7 +49,7 @@ export default function PostDetailScreen() {
 
   const renderCommentItem = useCallback(
     ({ item }: { item: PostComment }) => <CommentCard comment={item} />,
-    []
+    [],
   );
 
   const toggleShowBody = () => setShowFullBody((prev) => !prev);
@@ -62,9 +73,7 @@ export default function PostDetailScreen() {
 
   const displayBody = showFullBody
     ? capitalizeFirstLetter(post.body)
-    : capitalizeFirstLetter(post.body.slice(0, 100)) + (post.body.length > 100 ? '...' : '')
-  ;
-
+    : capitalizeFirstLetter(post.body.slice(0, 100)) + (post.body.length > 100 ? '...' : '');
   return (
     <View style={styles.container}>
       <View>
@@ -73,9 +82,7 @@ export default function PostDetailScreen() {
         <Text style={styles.body}>{displayBody}</Text>
         {post.body.length > 100 && (
           <Pressable onPress={toggleShowBody}>
-            <Text style={styles.readMore}>
-              {showFullBody ? 'Read less' : 'Read more'}
-            </Text>
+            <Text style={styles.readMore}>{showFullBody ? 'Read less' : 'Read more'}</Text>
           </Pressable>
         )}
       </View>

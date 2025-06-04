@@ -2,7 +2,6 @@ import { render } from '@testing-library/react-native';
 import { PostCard } from '../PostCard';
 import { Photo } from '@/schemas';
 
-
 const mockPhoto: Photo = {
   albumId: 1,
   id: 1,
@@ -16,4 +15,3 @@ test('renders title and image', () => {
   expect(getByText('Test photo')).toBeTruthy();
   expect(getByTestId('photo-card-image')).toBeTruthy();
 });
-

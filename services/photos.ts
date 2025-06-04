@@ -2,7 +2,6 @@ import { api } from './api';
 import { Photo, PhotosSchema } from '../schemas';
 import { AxiosResponse } from 'axios';
 
-
 export async function fetchPhotos(): Promise<Photo[]> {
   const response: AxiosResponse<unknown> = await api.get('/photos');
 
