@@ -6,6 +6,7 @@ import { Post } from '@/schemas';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { useFavoritesStore } from '@/stores/favoritesStore';
 import { Card, Description, Header, PostImage, TextContainer, Title } from '@/styled/postCard';
+// TODO: Check why favorite status is not working at first app load
 
 type Props = {
   post: Post;
@@ -15,9 +16,10 @@ const TEXT_MAX_LENGHT: number = 200;
 
 const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
   const router = useRouter();
-
   const { removeFavorite, addFavorite, isFavorite } = useFavoritesStore();
-  const isFav = isFavorite(post.id);
+  const isFav = useFavoritesStore(
+    useCallback((state) => state.isFavorite(post.id), [post.id])
+  );
 
   const handlePress = useCallback(() => {
     router.push({
@@ -27,12 +29,12 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
   }, [router, post.id]);
 
   const toggleFavorite = useCallback(async () => {
-    if (isFav) {
+    if (isFavorite(post.id)) {
       await removeFavorite(post.id);
     } else {
       await addFavorite(post);
     }
-  }, [post.id, addFavorite, removeFavorite]);
+  }, [post.id, isFavorite, addFavorite, removeFavorite]);  
 
   return (
     <Card onPress={handlePress}>
@@ -42,8 +44,11 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
       />
       <TextContainer>
         <Header>
-          <Title>{capitalizeFirstLetter(post.title)}</Title>
-          <TouchableOpacity onPress={toggleFavorite}>
+          <Title testID='post-title'>{capitalizeFirstLetter(post.title)}</Title>
+          <TouchableOpacity 
+            onPress={toggleFavorite}
+            testID='favorite-button'
+          >
             <FontAwesome
               name={isFav ? 'heart' : 'heart-o'}
               size={20}
@@ -51,7 +56,7 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
             />
           </TouchableOpacity>
         </Header>
-        <Description>
+        <Description testID='post-body'>
           {capitalizeFirstLetter(post.body).slice(0, TEXT_MAX_LENGHT)} 
           {post.body.length > TEXT_MAX_LENGHT ? '...' : ''}
         </Description>

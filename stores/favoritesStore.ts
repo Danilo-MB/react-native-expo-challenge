@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Post } from '@/schemas';
 
-type FavoritesState = {
+export type FavoritesState = {
   favorites: Post[];
   loadFavorites: () => Promise<void>;
   addFavorite: (post: Post) => Promise<void>;
@@ -27,7 +27,7 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => ({
     }
   },
 
-  addFavorite: async (post: Post): Promise<void> => {
+  addFavorite: async (post: Post): Promise<void> => {    
     const existing = get().favorites;
     if (!existing.some((p) => p.id === post.id)) {
       const updated = [...existing, post];
