@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { fetchUsers } from '../../services/users';
-import { User } from '../../schemas';
+import { fetchUsers } from '../../../services/users';
+import { User } from '../../../schemas';
 import UserCard from '@/components/UserCard';
 import { JSX, useCallback } from 'react';
 import { CenteredContainer, ErrorText, LoadingText } from '@/styled/users';

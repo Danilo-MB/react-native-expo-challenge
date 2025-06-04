@@ -26,21 +26,21 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name='Posts'
+        name='(posts)/index'
         options={{
           title: 'Posts',
           tabBarIcon: ({ color }) => <TabBarIcon name='newspaper-o' color={color} />,
         }}
       />
       <Tabs.Screen
-        name='Users'
+        name='(users)/index'
         options={{
           title: 'Users',
           tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
         }}
       />
       <Tabs.Screen
-        name='Favorites'
+        name='(favorites)/index'
         options={{
           title: 'Favorites',
           tabBarIcon: ({ color }) => <TabBarIcon name='heart' color={color} />,

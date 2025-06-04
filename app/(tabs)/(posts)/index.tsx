@@ -4,9 +4,9 @@ import {
   ListRenderItem,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { Post } from '../../schemas';
+import { Post } from '../../../schemas';
 import { JSX, useCallback, useMemo, useState } from 'react';
-import PostCard from '../../components/PostCard';
+import PostCard from '../../../components/PostCard';
 import { fetchPosts } from '@/services/posts';
 import { Centered, ErrorText, Message, SearchInput } from '@/styled/posts';
 import { verticalScale, moderateScale } from 'react-native-size-matters';
