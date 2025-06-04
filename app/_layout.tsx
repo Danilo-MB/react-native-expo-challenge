@@ -3,11 +3,14 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useColorScheme } from '@/components/useColorScheme';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuthStore } from '@/stores/authStore';
+import LoginModal from '@/components/LoginModal';
 
 const queryClient = new QueryClient();
 
@@ -50,6 +53,23 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const [showLogin, setShowLogin] = useState<boolean>(false);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const user = await AsyncStorage.getItem('user');
+    
+      if (user) {
+        useAuthStore.getState().login(JSON.parse(user).username);
+        setShowLogin(false);
+      } else {
+        setShowLogin(true);
+      }
+    };
+    loadUser();
+    // AsyncStorage.clear();
+  }, []);
+  
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -59,6 +79,10 @@ function RootLayoutNav() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>
           <Toast />
+          <LoginModal 
+            visible={showLogin}
+            onLoginSuccess={() => setShowLogin(false)}
+          />
         </>
       </QueryClientProvider>
     </ThemeProvider>

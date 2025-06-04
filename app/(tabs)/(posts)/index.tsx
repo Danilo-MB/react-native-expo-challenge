@@ -32,7 +32,7 @@ export default function PostsScreen(): JSX.Element {
   if (isLoading) {
     return (
       <Centered>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size='large' />
         <Message>Loading photos...</Message>
       </Centered>
     );
@@ -50,7 +50,7 @@ export default function PostsScreen(): JSX.Element {
   return (
     <>
       <SearchInput
-        placeholder="Search by title..."
+        placeholder='Search by title or content...'
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
