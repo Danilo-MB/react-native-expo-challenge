@@ -1,7 +1,5 @@
 import { Stack, useRouter } from 'expo-router';
-import { Pressable, StyleSheet } from 'react-native';
-
-import { Text, View } from '@/components/Themed';
+import { Container, Link, LinkText, Title } from '@/styled/notFound';
 
 export default function NotFoundScreen() {
   const router = useRouter();
@@ -9,34 +7,13 @@ export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
-      <View style={styles.container}>
-        <Text style={styles.title}>This screen doesn't exist.</Text>
+      <Container>
+        <Title>This screen doesn't exist.</Title>
 
-        <Pressable onPress={() => router.replace('/(tabs)/(posts)')} style={styles.link}>
-          <Text style={styles.linkText}>Go to home screen!</Text>
-        </Pressable>
-      </View>
+        <Link onPress={() => router.replace('/(tabs)/(posts)')}>
+          <LinkText>Go to home screen!</LinkText>
+        </Link>
+      </Container>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-});

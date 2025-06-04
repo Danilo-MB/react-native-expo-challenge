@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { moderateScale } from 'react-native-size-matters';
 import { Colors } from '@/constants/Colors';
 
-
 export const CenteredContainer = styled.View`
   flex: 1;
   justify-content: center;

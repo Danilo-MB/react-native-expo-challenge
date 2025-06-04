@@ -22,20 +22,20 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="Username"
+        placeholder='Username'
         value={username}
         onChangeText={setUsername}
         style={styles.input}
       />
       <TextInput
-        placeholder="Password"
+        placeholder='Password'
         value={password}
         onChangeText={setPassword}
         secureTextEntry
         style={styles.input}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Button title="Login" onPress={handleLogin} />
+      <Button title='Login' onPress={handleLogin} />
     </View>
   );
 }

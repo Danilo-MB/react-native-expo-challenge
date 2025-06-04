@@ -27,7 +27,7 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => ({
     }
   },
 
-  addFavorite: async (post: Post): Promise<void> => {    
+  addFavorite: async (post: Post): Promise<void> => {
     const existing = get().favorites;
     if (!existing.some((p) => p.id === post.id)) {
       const updated = [...existing, post];

@@ -11,5 +11,5 @@ export const CenteredView = styled.View`
 
 export const EmptyText = styled.Text`
   font-size: ${moderateScale(16)}px;
-  color: ${Colors.gray}
+  color: ${Colors.gray};
 `;

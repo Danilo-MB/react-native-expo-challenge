@@ -8,11 +8,11 @@ type Props = {
 
 const CommentCard: React.FC<Props> = React.memo(({ comment }: Props) => {
   return (
-    <Card>
-      <AuthorText>
+    <Card testID='comment-card'>
+      <AuthorText testID='comment-author'>
         By {comment.name} @ {comment.email}
       </AuthorText>
-      <BodyText>{comment.body}</BodyText>
+      <BodyText testID='comment-body'>{comment.body}</BodyText>
     </Card>
   );
 });

@@ -15,7 +15,7 @@ const mockRemoveFavorite = jest.fn();
 jest.mock('@/stores/favoritesStore', () => ({
   useFavoritesStore: (selector?: (state: FavoritesState) => unknown) => {
     if (selector) {
-      return selector({ 
+      return selector({
         favorites: [],
         loadFavorites: jest.fn(),
         addFavorite: mockAddFavorite,
@@ -76,11 +76,11 @@ describe('PostCard', () => {
 
   it('navigates to post detail when pressed', () => {
     const { getByTestId } = render(<PostCard post={mockPost} />);
-    
+
     act(() => {
       fireEvent.press(getByTestId('photo-image').parent);
     });
-    
+
     expect(mockRouter.push).toHaveBeenCalledWith({
       pathname: '/post/[id]',
       params: { id: '1' },
@@ -90,7 +90,7 @@ describe('PostCard', () => {
   it('toggles favorite status when favorite button is pressed', async () => {
     mockIsFavorite.mockReturnValue(false);
     const { getByTestId } = render(<PostCard post={mockPost} />);
-    
+
     await act(async () => {
       fireEvent.press(getByTestId('favorite-button'));
     });
@@ -98,7 +98,7 @@ describe('PostCard', () => {
 
     mockIsFavorite.mockReturnValue(true);
     const { getByTestId: getByTestId2 } = render(<PostCard post={mockPost} />);
-    
+
     await act(async () => {
       fireEvent.press(getByTestId2('favorite-button'));
     });

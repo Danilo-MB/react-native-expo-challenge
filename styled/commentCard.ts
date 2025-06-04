@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '@/constants/Colors';
 
-
 export const Card = styled.View`
   padding-vertical: ${verticalScale(8)}px;
   border-bottom-width: 1px;

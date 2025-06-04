@@ -26,5 +26,5 @@ export const Phone = styled.Text`
 `;
 
 export const Website = styled.Text`
-  color: ${Colors.linksBlue}
+  color: ${Colors.linksBlue};
 `;

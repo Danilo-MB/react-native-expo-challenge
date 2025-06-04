@@ -1,8 +1,4 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItem,
-} from 'react-native';
+import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { Post } from '../../../schemas';
 import { JSX, useCallback, useMemo, useState } from 'react';
@@ -36,7 +32,7 @@ export default function PostsScreen(): JSX.Element {
   if (isLoading) {
     return (
       <Centered>
-        <ActivityIndicator size='large' />
+        <ActivityIndicator size="large" />
         <Message>Loading photos...</Message>
       </Centered>
     );
@@ -54,7 +50,7 @@ export default function PostsScreen(): JSX.Element {
   return (
     <>
       <SearchInput
-        placeholder='Search by title...'
+        placeholder="Search by title..."
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
