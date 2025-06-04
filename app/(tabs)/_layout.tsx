@@ -1,8 +1,6 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-
+import { Tabs } from 'expo-router';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
@@ -28,24 +26,24 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="News"
+        name='Posts'
         options={{
-          title: 'News',
-          tabBarIcon: ({ color }) => <TabBarIcon name="newspaper-o" color={color} />,
+          title: 'Posts',
+          tabBarIcon: ({ color }) => <TabBarIcon name='newspaper-o' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="Users"
+        name='Users'
         options={{
           title: 'Users',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="Favorites"
+        name='Favorites'
         options={{
           title: 'Favorites',
-          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='heart' color={color} />,
         }}
       />
     </Tabs>

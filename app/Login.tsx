@@ -13,7 +13,7 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     const success = await login(username, password);
     if (success) {
-      router.replace('/(tabs)/News'); // Go to main screen
+      router.replace('/(tabs)/News');
     } else {
       setError('Invalid credentials');
     }

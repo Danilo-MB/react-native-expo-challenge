@@ -13,7 +13,7 @@ import { fetchPostById } from '@/services/posts';
 import { fetchCommentsByPostId } from '@/services/comments';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { PostComment } from '@/schemas';
-import { CommentCard } from '@/components/CommentCard';
+import CommentCard  from '@/components/CommentCard';
 import { useCallback, useLayoutEffect, useState } from 'react';
 
 export default function PostDetailScreen() {

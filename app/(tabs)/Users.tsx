@@ -1,12 +1,13 @@
-// app/(tabs)/Users.tsx
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUsers } from '../../services/users';
 import { User } from '../../schemas';
 import UserCard from '@/components/UserCard';
-import { useCallback } from 'react';
+import { JSX, useCallback } from 'react';
+import { CenteredContainer, ErrorText, LoadingText } from '@/styled/users';
+import { scale } from 'react-native-size-matters';
 
-export default function UsersScreen() {
+export default function UsersScreen(): JSX.Element {
   const {
     data: users,
     isLoading,
@@ -20,17 +21,17 @@ export default function UsersScreen() {
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
-        <Text>Loading users...</Text>
-      </View>
+      <CenteredContainer>
+        <LoadingText>Loading users...</LoadingText>
+      </CenteredContainer>
     );
   }
 
   if (error || !users) {
     return (
-      <View style={styles.centered}>
-        <Text style={styles.errorText}>Failed to load users.</Text>
-      </View>
+      <CenteredContainer>
+        <ErrorText>Failed to load users.</ErrorText>
+      </CenteredContainer>
     );
   }
 
@@ -39,23 +40,7 @@ export default function UsersScreen() {
       data={users}
       keyExtractor={(item) => item.id.toString()}
       renderItem={renderItem}
-      contentContainerStyle={styles.list}
+      contentContainerStyle={{ padding: scale(16) }}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  list: {
-    padding: 16,
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  errorText: {
-    fontSize: 16,
-    color: 'red',
-  },
-});

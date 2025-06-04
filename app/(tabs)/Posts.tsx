@@ -1,19 +1,17 @@
 import {
-  View,
-  Text,
   ActivityIndicator,
   FlatList,
-  StyleSheet,
   ListRenderItem,
-  TextInput,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { Post } from '../../schemas';
 import { JSX, useCallback, useMemo, useState } from 'react';
 import PostCard from '../../components/PostCard';
 import { fetchPosts } from '@/services/posts';
+import { Centered, ErrorText, Message, SearchInput } from '@/styled/posts';
+import { verticalScale, moderateScale } from 'react-native-size-matters';
 
-export default function PhotosScreen(): JSX.Element {
+export default function PostsScreen(): JSX.Element {
   const {
     data: posts,
     isLoading,
@@ -22,7 +20,6 @@ export default function PhotosScreen(): JSX.Element {
     queryKey: ['posts'],
     queryFn: fetchPosts,
   });
-
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filteredPosts = useMemo(() => {
@@ -38,27 +35,26 @@ export default function PhotosScreen(): JSX.Element {
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" />
-        <Text>Loading photos...</Text>
-      </View>
+      <Centered>
+        <ActivityIndicator size='large' />
+        <Message>Loading photos...</Message>
+      </Centered>
     );
   }
 
   if (error) {
     return (
-      <View style={styles.centered}>
-        <Text style={styles.errorText}>Failed to load photos.</Text>
-        <Text>{error.message}</Text>
-      </View>
+      <Centered>
+        <ErrorText>Failed to load photos.</ErrorText>
+        <Message>{error.message}</Message>
+      </Centered>
     );
   }
 
   return (
     <>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search by title..."
+      <SearchInput
+        placeholder='Search by title...'
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
@@ -66,35 +62,11 @@ export default function PhotosScreen(): JSX.Element {
         data={filteredPosts}
         renderItem={renderItem}
         keyExtractor={(item: Post) => item.id.toString()}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={{
+          paddingVertical: verticalScale(20),
+          paddingHorizontal: moderateScale(16),
+        }}
       />
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  container: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-  },
-  errorText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'red',
-    marginBottom: 10,
-  },
-  searchInput: {
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 8,
-    marginBottom: 16,
-    fontSize: 16,
-  },
-});
