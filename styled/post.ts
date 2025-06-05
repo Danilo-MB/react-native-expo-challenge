@@ -23,7 +23,7 @@ export const StyledImage = styled.Image`
 `;
 
 export const Title = styled.Text`
-  font-size: ${scale(20)}px;
+  font-size: ${scale(16)}px;
   font-weight: bold;
   margin-bottom: ${scale(8)}px;
 `;

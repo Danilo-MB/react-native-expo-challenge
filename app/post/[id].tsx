@@ -79,7 +79,7 @@ const PostDetailScreen: React.FC = () => {
     <Container>
       <View>
         <StyledImage source={{ uri: 'https://picsum.photos/200' }} />
-        <Title>{capitalizeFirstLetter(post.title)}</Title>
+        <Title>{capitalizeFirstLetter(post?.title ?? 'Untitled')}</Title>
         <Body>{displayBody}</Body>
         {post.body.length > 100 && (
           <Pressable onPress={toggleShowBody}>
