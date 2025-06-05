@@ -2,6 +2,13 @@ import styled from 'styled-components/native';
 import { moderateScale } from 'react-native-size-matters';
 import { Colors } from '@/constants/Colors';
 
+
+export const MainContainer = styled.View`
+  flex: 1;
+  background-color: ${Colors.transparentBlack};
+  justify-content: center;
+`;
+
 export const Container = styled.View`
   justify-content: center;
   padding: ${moderateScale(20)}px;

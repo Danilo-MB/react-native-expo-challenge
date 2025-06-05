@@ -26,4 +26,5 @@ export const Colors = {
   gainsboro: '#ddd',
   linksBlue: '#007aff',
   whiteSmoke: '#f2f2f2;',
+  transparentBlack: 'rgba(0, 0, 0, 0.5)',
 };

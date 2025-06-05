@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Modal, Button, View, ActivityIndicator } from 'react-native';
+import { Modal, Button, ActivityIndicator } from 'react-native';
 import { Formik } from 'formik';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '@/stores/authStore';
 import { z } from 'zod';
-import { Container, ErrorText, Input, LoginHeader } from '@/styled/loginModal';
+import { Container, ErrorText, Input, LoginHeader, MainContainer } from '@/styled/loginModal';
 
 const DUMMY_CREDENTIALS = {
   username: 'admin',
@@ -50,13 +50,11 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
     ) {
       await AsyncStorage.setItem('user', JSON.stringify({ username }));
       login(username);
-      // Simulating server response delay
+      // TODO: Wrap this in a settimeout could simulate a delayed server response
       setLoading(true);
-      setTimeout(() => {
-        onLoginSuccess();
-        setLoading(false);
-      }, 1500);
-      // Simulation ends here
+      onLoginSuccess();
+      setLoading(false);
+
     } else {
       setErrors({ password: 'Invalid credentials' });
     }
@@ -67,7 +65,7 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
       visible={visible}
       transparent
     >
-      <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', flex: 1, justifyContent: 'center' }}>
+      <MainContainer>
         <Container>
           <LoginHeader>Please Log In</LoginHeader>
           <Formik<FormValues>
@@ -112,7 +110,7 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
             )}
           </Formik>
         </Container>
-      </View>
+      </MainContainer>
     </Modal>
   );
 };
