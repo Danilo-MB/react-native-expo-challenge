@@ -10,16 +10,6 @@ export const PostSchema = z.object({
 export const PostsSchema = z.array(PostSchema);
 export type Post = z.infer<typeof PostSchema>;
 
-export const PhotoSchema = z.object({
-  albumId: z.number(),
-  id: z.number(),
-  title: z.string(),
-  url: z.string().url(),
-  thumbnailUrl: z.string().url(),
-});
-
-export const PhotosSchema = z.array(PhotoSchema);
-export type Photo = z.infer<typeof PhotoSchema>;
 
 export const CommentSchema = z.object({
   postId: z.number(),

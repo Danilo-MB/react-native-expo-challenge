@@ -6,7 +6,7 @@ import { Post } from '@/schemas';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { useFavoritesStore } from '@/stores/favoritesStore';
 import { Card, Description, Header, PostImage, TextContainer, Title } from '@/styled/postCard';
-// TODO: Check why favorite status is not working at first app load
+// TODO: Check why favorite status is not working at first app load (ios)
 
 type Props = {
   post: Post;
@@ -36,11 +36,11 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
 
   return (
     <Card onPress={handlePress}>
-      <PostImage source={{ uri: 'https://picsum.photos/200' }} testID="photo-image" />
+      <PostImage source={{ uri: 'https://picsum.photos/200' }} testID='photo-image' />
       <TextContainer>
         <Header>
-          <Title testID="post-title">{capitalizeFirstLetter(post.title)}</Title>
-          <TouchableOpacity onPress={toggleFavorite} testID="favorite-button">
+          <Title testID='post-title'>{capitalizeFirstLetter(post.title)}</Title>
+          <TouchableOpacity onPress={toggleFavorite} testID='favorite-button'>
             <FontAwesome
               name={isFav ? 'heart' : 'heart-o'}
               size={20}
@@ -48,7 +48,7 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
             />
           </TouchableOpacity>
         </Header>
-        <Description testID="post-body">
+        <Description testID='post-body'>
           {capitalizeFirstLetter(post.body).slice(0, TEXT_MAX_LENGHT)}
           {post.body.length > TEXT_MAX_LENGHT ? '...' : ''}
         </Description>
