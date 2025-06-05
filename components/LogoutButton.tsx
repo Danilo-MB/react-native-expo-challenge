@@ -1,24 +1,29 @@
 import React from 'react';
 import { Alert, Button } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   onLogoutPress: () => void;
 };
 
-const LogoutButtom: React.FC<Props> = (props) => {
-  const { onLogoutPress } = props;
+const LogoutButton: React.FC<Props> = ({ onLogoutPress }) => {
+  const { t } = useTranslation();
 
   return (
     <Button
-      title='Log out'
+      title={t('logout')}
       onPress={() => {
-        Alert.alert('Log out', 'Are you sure you want to log out?', [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'Log Out', style: 'destructive', onPress: onLogoutPress },
-        ]);
+        Alert.alert(
+          t('logout'),
+          t('confirm_logout', 'Are you sure you want to log out?'),
+          [
+            { text: t('cancel'), style: 'cancel' },
+            { text: t('logout'), style: 'destructive', onPress: onLogoutPress },
+          ]
+        );
       }}
-    /> 
+    />
   );
 };
 
-export default LogoutButtom;
+export default LogoutButton;

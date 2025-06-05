@@ -6,6 +6,7 @@ import { Post } from '@/schemas';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { useFavoritesStore } from '@/stores/favoritesStore';
 import { Card, Description, Header, PostImage, TextContainer, Title } from '@/styled/postCard';
+import { useTranslation } from 'react-i18next';
 // TODO: Check why favorite status is not working at first app load (ios)
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 const TEXT_MAX_LENGHT: number = 200;
 
 const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { removeFavorite, addFavorite, isFavorite } = useFavoritesStore();
   const isFav = useFavoritesStore(useCallback((state) => state.isFavorite(post.id), [post.id]));
@@ -26,15 +28,16 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
     });
   }, [router, post.id]);
 
+
   const toggleFavorite = useCallback(async () => {
     if (isFavorite(post.id)) {
       Alert.alert(
-        'Remove from Favorites',
-        'Are you sure you want to remove this post from your favorites?',
+        t('remove_from_favorites'),
+        t('confirm_remove'),
         [
-          { text: 'Cancel', style: 'cancel' },
+          { text: t('cancel'), style: 'cancel' },
           {
-            text: 'Remove',
+            text: t('remove_from_favorites'),
             style: 'destructive',
             onPress: async () => {
               await removeFavorite(post.id);
@@ -45,7 +48,8 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
     } else {
       await addFavorite(post);
     }
-  }, [post, isFavorite, addFavorite, removeFavorite]);
+  }, [post.id, isFavorite, addFavorite, removeFavorite, t]);
+  
   
   return (
     <Card onPress={handlePress}>

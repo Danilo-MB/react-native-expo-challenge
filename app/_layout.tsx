@@ -11,8 +11,11 @@ import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '@/stores/authStore';
 import LoginModal from '@/components/LoginModal';
-import { Alert, Button } from 'react-native';
 import LogoutButtom from '@/components/LogoutButton';
+import { useLanguageStore } from '../stores/languagesStore';
+import LanguageToggleButton from '@/components/LanguageToggleButton';
+
+
 
 const queryClient = new QueryClient();
 
@@ -58,6 +61,12 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const [showLogin, setShowLogin] = useState<boolean>(false);
 
+  const loadSavedLanguage = async (): Promise<void> => {
+    const savedLang = await AsyncStorage.getItem('language');
+    if (savedLang === 'en' || savedLang === 'es') {
+      useLanguageStore.getState().setLanguage(savedLang);
+    }
+  };
 
   const onLogoutPress = async (): Promise<void> => {
     logout();
@@ -83,6 +92,10 @@ function RootLayoutNav() {
       setShowLogin(true);
     }
   }, [user]);
+
+  useEffect(() => {
+    loadSavedLanguage();
+  }, []);
   
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -95,6 +108,7 @@ function RootLayoutNav() {
                   <LogoutButtom  onLogoutPress={onLogoutPress} />
                 : null
               ),
+              headerLeft: () => <LanguageToggleButton />,
             }}
           >
             <Stack.Screen 
