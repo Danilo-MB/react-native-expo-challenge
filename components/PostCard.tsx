@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
 import { Post } from '@/schemas';
@@ -28,12 +28,25 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
 
   const toggleFavorite = useCallback(async () => {
     if (isFavorite(post.id)) {
-      await removeFavorite(post.id);
+      Alert.alert(
+        'Remove from Favorites',
+        'Are you sure you want to remove this post from your favorites?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Remove',
+            style: 'destructive',
+            onPress: async () => {
+              await removeFavorite(post.id);
+            },
+          },
+        ]
+      );
     } else {
       await addFavorite(post);
     }
-  }, [post.id, isFavorite, addFavorite, removeFavorite]);
-
+  }, [post, isFavorite, addFavorite, removeFavorite]);
+  
   return (
     <Card onPress={handlePress}>
       <PostImage source={{ uri: 'https://picsum.photos/200' }} testID='photo-image' />

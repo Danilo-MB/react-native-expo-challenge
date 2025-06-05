@@ -59,7 +59,7 @@ export default function PostsScreen(): JSX.Element {
         renderItem={renderItem}
         keyExtractor={(item: Post) => item.id.toString()}
         contentContainerStyle={{
-          paddingVertical: verticalScale(20),
+          paddingVertical: verticalScale(10),
           paddingHorizontal: moderateScale(16),
         }}
       />

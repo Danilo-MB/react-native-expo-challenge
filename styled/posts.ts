@@ -26,7 +26,7 @@ export const SearchInput = styled(TextInput)`
   padding-horizontal: ${scale(12)}px;
   padding-vertical: ${verticalScale(8)}px;
   border-radius: ${moderateScale(8)}px;
-  margin-bottom: ${verticalScale(16)}px;
+  margin-bottom: ${verticalScale(5)}px;
   font-size: ${moderateScale(16)}px;
   margin-horizontal: ${scale(16)}px;
 `;
