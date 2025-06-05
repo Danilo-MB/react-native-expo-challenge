@@ -30,10 +30,9 @@ This is a React Native app built with **Expo**, demonstrating features such as:
 ### Favorites
 - Users can mark posts as favorites
 - Favorites are saved in local storage using `AsyncStorage`
-- No backend required
 
 ### Search
-- Case-insensitive post title search
+- Case-insensitive post title and content search
 
 ### UI & Styling
 - Styled using **styled-components**
