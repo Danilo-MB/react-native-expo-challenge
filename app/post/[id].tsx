@@ -3,9 +3,7 @@ import {
   View,
   Text,
   ActivityIndicator,
-  Image,
   FlatList,
-  StyleSheet,
   Pressable,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
@@ -15,8 +13,9 @@ import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { PostComment } from '@/schemas';
 import CommentCard from '@/components/CommentCard';
 import { useCallback, useLayoutEffect, useState } from 'react';
+import { Body, Centered, CommentHeader, Container, ErrorText, ReadMore, StyledImage, Title } from '@/styled/post';
 
-export default function PostDetailScreen() {
+const PostDetailScreen: React.FC = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const postId = Number(id);
   const navigation = useNavigation();
@@ -56,40 +55,42 @@ export default function PostDetailScreen() {
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" />
+      <Centered>
+        <ActivityIndicator size='large' />
         <Text>Loading post...</Text>
-      </View>
+      </Centered>
     );
   }
 
   if (error || !post) {
     return (
-      <View style={styles.centered}>
-        <Text style={styles.errorText}>Failed to load post.</Text>
-      </View>
+      <Centered>
+        <ErrorText>Failed to load post.</ErrorText>
+      </Centered>
     );
   }
 
   const displayBody = showFullBody
     ? capitalizeFirstLetter(post.body)
-    : capitalizeFirstLetter(post.body.slice(0, 100)) + (post.body.length > 100 ? '...' : '');
+    : capitalizeFirstLetter(post.body.slice(0, 100)) + (post.body.length > 100 ? '...' : '')
+  ;
+
   return (
-    <View style={styles.container}>
+    <Container>
       <View>
-        <Image source={{ uri: 'https://picsum.photos/200' }} style={styles.image} />
-        <Text style={styles.title}>{capitalizeFirstLetter(post.title)}</Text>
-        <Text style={styles.body}>{displayBody}</Text>
+        <StyledImage source={{ uri: 'https://picsum.photos/200' }} />
+        <Title>{capitalizeFirstLetter(post.title)}</Title>
+        <Body>{displayBody}</Body>
         {post.body.length > 100 && (
           <Pressable onPress={toggleShowBody}>
-            <Text style={styles.readMore}>{showFullBody ? 'Read less' : 'Read more'}</Text>
+            <ReadMore>{showFullBody ? 'Read less' : 'Read more'}</ReadMore>
           </Pressable>
         )}
       </View>
 
-      <Text style={styles.commentHeader}>Comments</Text>
+      <CommentHeader>Comments</CommentHeader>
       {commentsLoading ? (
-        <ActivityIndicator size="small" />
+        <ActivityIndicator size='small' />
       ) : (
         <FlatList
           data={comments}
@@ -98,46 +99,8 @@ export default function PostDetailScreen() {
           style={{ height: '40%' }}
         />
       )}
-    </View>
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  container: {
-    padding: 16,
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  body: {
-    marginBottom: 8,
-  },
-  readMore: {
-    color: 'blue',
-    marginBottom: 16,
-  },
-  commentHeader: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 24,
-    marginBottom: 8,
-  },
-  errorText: {
-    fontSize: 16,
-    color: 'red',
-  },
-});
+export default PostDetailScreen;
