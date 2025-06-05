@@ -8,8 +8,16 @@ type Props = {
 };
 
 const UserCard: React.FC<Props> = React.memo(({ user }: Props) => {
-  const url = user.website.startsWith('http') ? user.website : `https://${user.website}`;
   
+  const handlePress = async (): Promise<void> => {
+    const supported = await Linking.canOpenURL(user.website);
+    if (supported) {
+      await Linking.openURL(`https://${user.website}`);
+    } else {
+      Alert.alert('Oops!', 'This link is not supported on your device.');
+    }
+  };
+
   return (
     <Card>
       <Name>
@@ -18,11 +26,7 @@ const UserCard: React.FC<Props> = React.memo(({ user }: Props) => {
       <Email>{user.email}</Email>
       <Phone>{user.phone}</Phone>
       <TouchableOpacity
-        onPress={() => {
-          Linking.openURL(url).catch(() => {
-            Alert.alert('Error', 'Unable to open the website.');
-          });
-        }}
+        onPress={handlePress}
       >
         <Website>{user.website}</Website>
       </TouchableOpacity>
