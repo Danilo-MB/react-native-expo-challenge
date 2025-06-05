@@ -11,6 +11,8 @@ import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '@/stores/authStore';
 import LoginModal from '@/components/LoginModal';
+import { Alert, Button } from 'react-native';
+import LogoutButtom from '@/components/LogoutButton';
 
 const queryClient = new QueryClient();
 
@@ -52,11 +54,18 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const { logout, user } = useAuthStore();
   const colorScheme = useColorScheme();
   const [showLogin, setShowLogin] = useState<boolean>(false);
 
+
+  const onLogoutPress = async (): Promise<void> => {
+    logout();
+    await AsyncStorage.removeItem('user');
+  };
+
   useEffect(() => {
-    const loadUser = async () => {
+    const loadUser = async (): Promise<void> => {
       const user = await AsyncStorage.getItem('user');
     
       if (user) {
@@ -67,16 +76,34 @@ function RootLayoutNav() {
       }
     };
     loadUser();
-    // AsyncStorage.clear();
   }, []);
-  
 
+  useEffect(() => {
+    if (!user && !showLogin) {
+      setShowLogin(true);
+    }
+  }, [user]);
+  
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
         <>
-          <Stack>
-            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+          <Stack 
+            screenOptions={{
+              headerRight: () => (
+                user ?
+                  <LogoutButtom  onLogoutPress={onLogoutPress} />
+                : null
+              ),
+            }}
+          >
+            <Stack.Screen 
+              name='(tabs)'
+              options={{ 
+                headerShown: true,
+                title: 'Posts App'
+              }}
+            />
           </Stack>
           <Toast />
           <LoginModal 
