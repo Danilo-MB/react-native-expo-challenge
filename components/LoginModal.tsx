@@ -24,12 +24,12 @@ type LoginModalProps = {
 
 const LoginModal: React.FC<LoginModalProps> = (props) => {
   const { login } = useAuthStore();
-  const { visible, onLoginSuccess} = props;
+  const { visible, onLoginSuccess } = props;
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = async (
     values: FormValues,
-    { setErrors }: { setErrors: (errors: Partial<Record<keyof FormValues, string>>) => void }
+    { setErrors }: { setErrors: (errors: Partial<Record<keyof FormValues, string>>) => void },
   ) => {
     const parsed = loginSchema.safeParse(values);
 
@@ -44,10 +44,7 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
 
     const { username, password } = values;
 
-    if (
-      username === DUMMY_CREDENTIALS.username &&
-      password === DUMMY_CREDENTIALS.password
-    ) {
+    if (username === DUMMY_CREDENTIALS.username && password === DUMMY_CREDENTIALS.password) {
       await typedStorage.setItem('user', { username });
       login(username);
       // Possible enhancement: Wrap this in a settimeout could simulate a delayed server response
@@ -60,51 +57,45 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
   };
 
   return (
-    <Modal 
-      visible={visible}
-      transparent
-    >
+    <Modal visible={visible} transparent>
       <MainContainer>
         <Container>
           <LoginHeader>Please Log In</LoginHeader>
-          <Formik<FormValues>
-            initialValues={{ username: '', password: '' }}
-            onSubmit={handleLogin}
-          >
+          <Formik<FormValues> initialValues={{ username: '', password: '' }} onSubmit={handleLogin}>
             {({ handleChange, handleSubmit, values, errors, touched }) => (
               <>
                 <Input
-                  placeholder='Username'
+                  placeholder="Username"
                   value={values.username}
                   onChangeText={handleChange('username')}
-                  testID='username-input'
-                  autoCapitalize='none'
+                  testID="username-input"
+                  autoCapitalize="none"
                 />
                 {touched.username && errors.username && (
-                  <ErrorText testID='username-error'>{errors.username}</ErrorText>
+                  <ErrorText testID="username-error">{errors.username}</ErrorText>
                 )}
 
                 <Input
-                  placeholder='Password'
+                  placeholder="Password"
                   secureTextEntry
                   value={values.password}
                   onChangeText={handleChange('password')}
-                  testID='password-input'
+                  testID="password-input"
                 />
                 {touched.password && errors.password && (
-                  <ErrorText testID='password-error'>{errors.password}</ErrorText>
+                  <ErrorText testID="password-error">{errors.password}</ErrorText>
                 )}
-                {loading ?
+                {loading ? (
                   <ActivityIndicator />
-                  :
-                  <Button 
+                ) : (
+                  <Button
                     title={'Log In'}
                     // TODO: Fix TS issue here:
-                    onPress={handleSubmit as any} 
-                    testID='login-button' 
+                    onPress={handleSubmit as any}
+                    testID="login-button"
                     disabled={loading}
                   />
-                }
+                )}
               </>
             )}
           </Formik>

@@ -1,11 +1,5 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  Pressable,
-} from 'react-native';
+import { View, Text, ActivityIndicator, FlatList, Pressable } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPostById } from '@/services/posts';
 import { fetchCommentsByPostId } from '@/services/comments';
@@ -13,7 +7,16 @@ import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { PostComment } from '@/schemas';
 import CommentCard from '@/components/CommentCard';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { Body, Centered, CommentHeader, Container, ErrorText, ReadMore, StyledImage, Title } from '@/styled/post';
+import {
+  Body,
+  Centered,
+  CommentHeader,
+  Container,
+  ErrorText,
+  ReadMore,
+  StyledImage,
+  Title,
+} from '@/styled/post';
 
 const PostDetailScreen: React.FC = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -56,7 +59,7 @@ const PostDetailScreen: React.FC = () => {
   if (isLoading) {
     return (
       <Centered>
-        <ActivityIndicator size='large' />
+        <ActivityIndicator size="large" />
         <Text>Loading post...</Text>
       </Centered>
     );
@@ -72,9 +75,7 @@ const PostDetailScreen: React.FC = () => {
 
   const displayBody = showFullBody
     ? capitalizeFirstLetter(post.body)
-    : capitalizeFirstLetter(post.body.slice(0, 100)) + (post.body.length > 100 ? '...' : '')
-  ;
-
+    : capitalizeFirstLetter(post.body.slice(0, 100)) + (post.body.length > 100 ? '...' : '');
   return (
     <Container>
       <View>
@@ -90,7 +91,7 @@ const PostDetailScreen: React.FC = () => {
 
       <CommentHeader>Comments</CommentHeader>
       {commentsLoading ? (
-        <ActivityIndicator size='small' />
+        <ActivityIndicator size="small" />
       ) : (
         <FlatList
           data={comments}
@@ -101,6 +102,6 @@ const PostDetailScreen: React.FC = () => {
       )}
     </Container>
   );
-}
+};
 
 export default PostDetailScreen;

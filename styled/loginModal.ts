@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { moderateScale } from 'react-native-size-matters';
 import { Colors } from '@/constants/Colors';
 
-
 export const MainContainer = styled.View`
   flex: 1;
   background-color: ${Colors.transparentBlack};
@@ -30,7 +29,6 @@ export const LoginHeader = styled.Text`
   font-size: ${moderateScale(20)}px;
   text-align: center;
   margin-bottom: ${moderateScale(30)}px;
-
 `;
 
 export const ErrorText = styled.Text`

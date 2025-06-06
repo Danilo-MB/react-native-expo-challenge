@@ -24,27 +24,27 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name='(posts)/index'
+        name="(posts)/index"
         options={{
           title: 'Posts',
           tabBarLabel: t('posts'),
-          tabBarIcon: ({ color }) => <TabBarIcon name='newspaper-o' color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="newspaper-o" color={color} />,
         }}
       />
       <Tabs.Screen
-        name='(users)/index'
+        name="(users)/index"
         options={{
           title: 'Users',
           tabBarLabel: t('users'),
-          tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
       <Tabs.Screen
-        name='(favorites)/index'
+        name="(favorites)/index"
         options={{
           title: 'Favorites',
           tabBarLabel: t('favorites'),
-          tabBarIcon: ({ color }) => <TabBarIcon name='heart' color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
         }}
       />
     </Tabs>

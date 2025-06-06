@@ -10,7 +10,6 @@ export const PostSchema = z.object({
 export const PostsSchema = z.array(PostSchema);
 export type Post = z.infer<typeof PostSchema>;
 
-
 export const CommentSchema = z.object({
   postId: z.number(),
   id: z.number(),

@@ -8,7 +8,7 @@ type StorageValues = {
   user: { username: string };
   language: Languages;
   favorites: Post[];
-}
+};
 
 export const typedStorage = {
   async setItem<K extends StorageKey>(key: K, value: StorageValues[K]): Promise<void> {
@@ -22,5 +22,5 @@ export const typedStorage = {
 
   async removeItem<K extends StorageKey>(key: K): Promise<void> {
     await AsyncStorage.removeItem(key);
-  }
+  },
 };

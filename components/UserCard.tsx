@@ -8,7 +8,6 @@ type Props = {
 };
 
 const UserCard: React.FC<Props> = React.memo(({ user }: Props) => {
-  
   const handlePress = async (): Promise<void> => {
     const supported = await Linking.canOpenURL(user.website);
     if (supported) {
@@ -25,9 +24,7 @@ const UserCard: React.FC<Props> = React.memo(({ user }: Props) => {
       </Name>
       <Email>{user.email}</Email>
       <Phone>{user.phone}</Phone>
-      <TouchableOpacity
-        onPress={handlePress}
-      >
+      <TouchableOpacity onPress={handlePress}>
         <Website>{user.website}</Website>
       </TouchableOpacity>
     </Card>

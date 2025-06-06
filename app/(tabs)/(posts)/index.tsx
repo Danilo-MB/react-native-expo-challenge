@@ -23,7 +23,8 @@ export default function PostsScreen(): JSX.Element {
     const query = searchQuery.toLowerCase();
 
     return posts.filter(
-      (post) => post?.title?.toLowerCase().includes(query) || post.body.toLowerCase().includes(query),
+      (post) =>
+        post?.title?.toLowerCase().includes(query) || post.body.toLowerCase().includes(query),
     );
   }, [posts, searchQuery]);
 
@@ -32,7 +33,7 @@ export default function PostsScreen(): JSX.Element {
   if (isLoading) {
     return (
       <Centered>
-        <ActivityIndicator size='large' />
+        <ActivityIndicator size="large" />
         <Message>Loading photos...</Message>
       </Centered>
     );
@@ -50,7 +51,7 @@ export default function PostsScreen(): JSX.Element {
   return (
     <>
       <SearchInput
-        placeholder='Search by title or content...'
+        placeholder="Search by title or content..."
         value={searchQuery}
         onChangeText={setSearchQuery}
       />

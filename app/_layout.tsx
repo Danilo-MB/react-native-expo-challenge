@@ -59,7 +59,7 @@ function RootLayoutNav() {
   const { logout, user } = useAuthStore();
   const colorScheme = useColorScheme();
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  
+
   const loadSavedLanguage = async (): Promise<void> => {
     const savedLang = await typedStorage.getItem('language');
     if (savedLang === 'en' || savedLang === 'es') {
@@ -75,7 +75,7 @@ function RootLayoutNav() {
   useEffect(() => {
     const loadUser = async (): Promise<void> => {
       const user = await typedStorage.getItem('user');
-    
+
       if (user) {
         useAuthStore.getState().login(user.username);
         setShowLogin(false);
@@ -95,36 +95,34 @@ function RootLayoutNav() {
   useEffect(() => {
     loadSavedLanguage();
   }, []);
-  
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
         <>
-          <Stack 
+          <Stack
             screenOptions={{
-              headerRight: () => (
-                user ?
-                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              headerRight: () =>
+                user ? (
+                  <View
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                  >
                     <LanguageToggleButton />
-                    <LogoutButtom  onLogoutPress={onLogoutPress} />
+                    <LogoutButtom onLogoutPress={onLogoutPress} />
                   </View>
-                : null
-              ),
+                ) : null,
             }}
           >
-            <Stack.Screen 
-              name='(tabs)'
-              options={{ 
+            <Stack.Screen
+              name="(tabs)"
+              options={{
                 headerShown: true,
-                title: 'Posts App'
+                title: 'Posts App',
               }}
             />
           </Stack>
           <Toast />
-          <LoginModal 
-            visible={showLogin}
-            onLoginSuccess={() => setShowLogin(false)}
-          />
+          <LoginModal visible={showLogin} onLoginSuccess={() => setShowLogin(false)} />
         </>
       </QueryClientProvider>
     </ThemeProvider>

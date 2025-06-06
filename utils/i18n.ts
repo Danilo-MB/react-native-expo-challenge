@@ -11,7 +11,7 @@ const resources = {
       confirm_logout: 'Are you sure you want to log out?',
       posts: 'Posts',
       favorites: 'Favorites',
-      users: 'Users'
+      users: 'Users',
     },
   },
   es: {
@@ -23,18 +23,16 @@ const resources = {
       confirm_logout: 'Está seguro que desea salir de la aplicación?',
       posts: 'Posts',
       favorites: 'Favoritos',
-      users: 'Usuarios'
+      users: 'Usuarios',
     },
   },
 };
 
-i18n
-  .use(initReactI18next)
-  .init({
-    compatibilityJSON: 'v4',
-    resources,
-    lng: 'en',
-    fallbackLng: 'en',
-  });
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v4',
+  resources,
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 export default i18n;

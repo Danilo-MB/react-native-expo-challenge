@@ -13,14 +13,10 @@ const LogoutButton: React.FC<Props> = ({ onLogoutPress }) => {
     <Button
       title={t('logout')}
       onPress={() => {
-        Alert.alert(
-          t('logout'),
-          t('confirm_logout', 'Are you sure you want to log out?'),
-          [
-            { text: t('cancel'), style: 'cancel' },
-            { text: t('logout'), style: 'destructive', onPress: onLogoutPress },
-          ]
-        );
+        Alert.alert(t('logout'), t('confirm_logout', 'Are you sure you want to log out?'), [
+          { text: t('cancel'), style: 'cancel' },
+          { text: t('logout'), style: 'destructive', onPress: onLogoutPress },
+        ]);
       }}
     />
   );

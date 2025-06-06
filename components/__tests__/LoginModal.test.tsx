@@ -22,9 +22,7 @@ describe('LoginModal', () => {
   it('logs in successfully and calls onLoginSuccess', async () => {
     const onLoginSuccess = jest.fn();
 
-    const { getByTestId } = render(
-      <LoginModal visible={true} onLoginSuccess={onLoginSuccess} />
-    );
+    const { getByTestId } = render(<LoginModal visible={true} onLoginSuccess={onLoginSuccess} />);
 
     fireEvent.changeText(getByTestId('username-input'), 'admin');
     fireEvent.changeText(getByTestId('password-input'), '1234');
@@ -34,7 +32,7 @@ describe('LoginModal', () => {
       expect(mockLogin).toHaveBeenCalledWith('admin');
       expect(AsyncStorage.setItem).toHaveBeenCalledWith(
         'user',
-        JSON.stringify({ username: 'admin' })
+        JSON.stringify({ username: 'admin' }),
       );
       expect(onLoginSuccess).toHaveBeenCalled();
     });

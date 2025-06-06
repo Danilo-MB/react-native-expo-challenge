@@ -28,36 +28,30 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
     });
   }, [router, post.id]);
 
-
   const toggleFavorite = useCallback(async () => {
     if (isFavorite(post.id)) {
-      Alert.alert(
-        t('remove_from_favorites'),
-        t('confirm_remove'),
-        [
-          { text: t('cancel'), style: 'cancel' },
-          {
-            text: t('remove_from_favorites'),
-            style: 'destructive',
-            onPress: async () => {
-              await removeFavorite(post.id);
-            },
+      Alert.alert(t('remove_from_favorites'), t('confirm_remove'), [
+        { text: t('cancel'), style: 'cancel' },
+        {
+          text: t('remove_from_favorites'),
+          style: 'destructive',
+          onPress: async () => {
+            await removeFavorite(post.id);
           },
-        ]
-      );
+        },
+      ]);
     } else {
       await addFavorite(post);
     }
   }, [post.id, isFavorite, addFavorite, removeFavorite, t]);
-  
-  
+
   return (
     <Card onPress={handlePress}>
-      <PostImage source={{ uri: 'https://picsum.photos/200' }} testID='photo-image' />
+      <PostImage source={{ uri: 'https://picsum.photos/200' }} testID="photo-image" />
       <TextContainer>
         <Header>
-          <Title testID='post-title'>{capitalizeFirstLetter(post.title)}</Title>
-          <TouchableOpacity onPress={toggleFavorite} testID='favorite-button'>
+          <Title testID="post-title">{capitalizeFirstLetter(post.title)}</Title>
+          <TouchableOpacity onPress={toggleFavorite} testID="favorite-button">
             <FontAwesome
               name={isFav ? 'heart' : 'heart-o'}
               size={20}
@@ -65,7 +59,7 @@ const PostCard: React.FC<Props> = React.memo(({ post }: Props) => {
             />
           </TouchableOpacity>
         </Header>
-        <Description testID='post-body'>
+        <Description testID="post-body">
           {capitalizeFirstLetter(post.body).slice(0, TEXT_MAX_LENGHT)}
           {post.body.length > TEXT_MAX_LENGHT ? '...' : ''}
         </Description>
