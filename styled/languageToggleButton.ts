@@ -5,11 +5,10 @@ import { Colors } from '../constants/Colors';
 
 export const Container = styled(View)`
   flex-direction: row;
-  padding-left: ${scale(12)}px;
 `;
 
 export const LangText = styled(Text)<{ selected: boolean }>`
-  font-size: ${scale(14)}px;
+  font-size: ${scale(12)}px;
   font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
   color: ${(props) => (props.selected ? Colors.linksBlue : Colors.gray)};
   margin-right: ${scale(4)}px;

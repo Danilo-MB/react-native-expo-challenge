@@ -14,6 +14,7 @@ import LoginModal from '@/components/LoginModal';
 import LogoutButtom from '@/components/LogoutButton';
 import { useLanguageStore } from '../stores/languagesStore';
 import LanguageToggleButton from '@/components/LanguageToggleButton';
+import { View } from 'react-native';
 
 const queryClient = new QueryClient();
 
@@ -103,10 +104,12 @@ function RootLayoutNav() {
             screenOptions={{
               headerRight: () => (
                 user ?
-                  <LogoutButtom  onLogoutPress={onLogoutPress} />
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <LanguageToggleButton />
+                    <LogoutButtom  onLogoutPress={onLogoutPress} />
+                  </View>
                 : null
               ),
-              headerLeft: () => <LanguageToggleButton />,
             }}
           >
             <Stack.Screen 

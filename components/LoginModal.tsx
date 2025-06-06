@@ -13,14 +13,14 @@ const DUMMY_CREDENTIALS = {
 
 const loginSchema = z.object({
   username: z.string().min(1, 'Username is required'),
-  password: z.string().min(4, 'Min 4 characters'),
+  password: z.string().min(4, 'Password is required'),
 });
 
 type FormValues = z.infer<typeof loginSchema>;
 type LoginModalProps = {
   visible: boolean;
   onLoginSuccess: () => void;
-}
+};
 
 const LoginModal: React.FC<LoginModalProps> = (props) => {
   const { login } = useAuthStore();
@@ -50,11 +50,10 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
     ) {
       await AsyncStorage.setItem('user', JSON.stringify({ username }));
       login(username);
-      // TODO: Wrap this in a settimeout could simulate a delayed server response
+      // Possible enhancement: Wrap this in a settimeout could simulate a delayed server response
       setLoading(true);
       onLoginSuccess();
       setLoading(false);
-
     } else {
       setErrors({ password: 'Invalid credentials' });
     }
