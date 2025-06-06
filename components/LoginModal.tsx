@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, Button, ActivityIndicator } from 'react-native';
 import { Formik } from 'formik';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '@/stores/authStore';
 import { z } from 'zod';
 import { Container, ErrorText, Input, LoginHeader, MainContainer } from '@/styled/loginModal';
+import { typedStorage } from '@/stores/stores';
 
 const DUMMY_CREDENTIALS = {
   username: 'admin',
@@ -48,7 +48,7 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
       username === DUMMY_CREDENTIALS.username &&
       password === DUMMY_CREDENTIALS.password
     ) {
-      await AsyncStorage.setItem('user', JSON.stringify({ username }));
+      await typedStorage.setItem('user', { username });
       login(username);
       // Possible enhancement: Wrap this in a settimeout could simulate a delayed server response
       setLoading(true);

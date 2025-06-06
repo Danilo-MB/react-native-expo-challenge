@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Post } from '@/schemas';
+import { typedStorage } from './stores';
 
 export type FavoritesState = {
   favorites: Post[];
@@ -15,9 +15,9 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => ({
 
   loadFavorites: async (): Promise<void> => {
     try {
-      const stored = await AsyncStorage.getItem('favorites');
+      const stored = await typedStorage.getItem('favorites');
       if (stored) {
-        const parsed: Post[] = JSON.parse(stored);
+        const parsed: Post[] = stored;
         set({ favorites: parsed });
       } else {
         set({ favorites: [] });
@@ -32,14 +32,14 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => ({
     if (!existing.some((p) => p.id === post.id)) {
       const updated = [...existing, post];
       set({ favorites: updated });
-      await AsyncStorage.setItem('favorites', JSON.stringify(updated));
+      await typedStorage.setItem('favorites', updated);
     }
   },
 
   removeFavorite: async (postId: number): Promise<void> => {
     const updated = get().favorites.filter((p) => p.id !== postId);
     set({ favorites: updated });
-    await AsyncStorage.setItem('favorites', JSON.stringify(updated));
+    await typedStorage.setItem('favorites', updated);
   },
 
   isFavorite: (postId: number): boolean => {

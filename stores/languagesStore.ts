@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from '@/utils/i18n';
+import { typedStorage } from './stores';
 
 type Language = 'en' | 'es';
 
@@ -16,13 +16,13 @@ export const useLanguageStore = create<LanguageState>((set) => ({
     set((state) => {
       const newLang = state.language === 'en' ? 'es' : 'en';
       i18n.changeLanguage(newLang);
-      AsyncStorage.setItem('language', newLang);
+      typedStorage.setItem('language', newLang);
       return { language: newLang };
     });
   },
   setLanguage: (lang) => {
     i18n.changeLanguage(lang);
-    AsyncStorage.setItem('language', lang);
+    typedStorage.setItem('language', lang);
     set({ language: lang });
   },
 }));

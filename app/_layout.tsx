@@ -8,13 +8,13 @@ import 'react-native-reanimated';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useColorScheme } from '@/components/useColorScheme';
 import Toast from 'react-native-toast-message';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '@/stores/authStore';
 import LoginModal from '@/components/LoginModal';
 import LogoutButtom from '@/components/LogoutButton';
 import { useLanguageStore } from '../stores/languagesStore';
 import LanguageToggleButton from '@/components/LanguageToggleButton';
 import { View } from 'react-native';
+import { typedStorage } from '@/stores/stores';
 
 const queryClient = new QueryClient();
 
@@ -61,7 +61,7 @@ function RootLayoutNav() {
   const [showLogin, setShowLogin] = useState<boolean>(false);
   
   const loadSavedLanguage = async (): Promise<void> => {
-    const savedLang = await AsyncStorage.getItem('language');
+    const savedLang = await typedStorage.getItem('language');
     if (savedLang === 'en' || savedLang === 'es') {
       useLanguageStore.getState().setLanguage(savedLang);
     }
@@ -69,15 +69,15 @@ function RootLayoutNav() {
 
   const onLogoutPress = async (): Promise<void> => {
     logout();
-    await AsyncStorage.removeItem('user');
+    await typedStorage.removeItem('user');
   };
 
   useEffect(() => {
     const loadUser = async (): Promise<void> => {
-      const user = await AsyncStorage.getItem('user');
+      const user = await typedStorage.getItem('user');
     
       if (user) {
-        useAuthStore.getState().login(JSON.parse(user).username);
+        useAuthStore.getState().login(user.username);
         setShowLogin(false);
       } else {
         setShowLogin(true);
