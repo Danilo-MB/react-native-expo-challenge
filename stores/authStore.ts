@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface AuthState {
+type AuthState = {
   user: string | null;
   login: (username: string) => void;
   logout: () => void;
