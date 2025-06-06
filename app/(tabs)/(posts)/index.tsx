@@ -23,7 +23,7 @@ export default function PostsScreen(): JSX.Element {
     const query = searchQuery.toLowerCase();
 
     return posts.filter(
-      (post) => post.title.toLowerCase().includes(query) || post.body.toLowerCase().includes(query),
+      (post) => post?.title?.toLowerCase().includes(query) || post.body.toLowerCase().includes(query),
     );
   }, [posts, searchQuery]);
 

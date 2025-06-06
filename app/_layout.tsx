@@ -15,8 +15,6 @@ import LogoutButtom from '@/components/LogoutButton';
 import { useLanguageStore } from '../stores/languagesStore';
 import LanguageToggleButton from '@/components/LanguageToggleButton';
 
-
-
 const queryClient = new QueryClient();
 
 export {
@@ -60,7 +58,7 @@ function RootLayoutNav() {
   const { logout, user } = useAuthStore();
   const colorScheme = useColorScheme();
   const [showLogin, setShowLogin] = useState<boolean>(false);
-
+  
   const loadSavedLanguage = async (): Promise<void> => {
     const savedLang = await AsyncStorage.getItem('language');
     if (savedLang === 'en' || savedLang === 'es') {
